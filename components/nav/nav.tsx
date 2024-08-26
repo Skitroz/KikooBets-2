@@ -52,7 +52,7 @@ function Nav() {
       </div>
       <nav className="bg-red-600 flex justify-between items-center px-8">
         <ul className="flex items-center">
-          <li className="inline-block font-bold text-white italic text-xl">
+          <li className="inline-block font-bold text-white italic text-3xl">
             <a href="/">KikooBets</a>
           </li>
           <li className="inline-block p-4 font-medium text-white text-sm">
