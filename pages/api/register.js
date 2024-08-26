@@ -14,6 +14,14 @@ export default async function handler(req, res) {
         where: { email },
       });
 
+      const existingUsername = await prisma.user.findUnique({
+        where: { username },
+      });
+
+      if (existingUsername) {
+        return res.status(400).json({ error: 'Ce nom d\'utilisateur est déjà utilisé.' });
+      }
+
       if (existingUser) {
         return res.status(400).json({ error: 'Cet email est déjà utilisé.' });
       }

@@ -1,6 +1,7 @@
 import prisma from '../../lib/prisma';
 import bcrypt from 'bcrypt';
 import { sign } from 'jsonwebtoken';
+import { serialize } from 'cookie';
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
@@ -30,7 +31,18 @@ export default async function handler(req, res) {
         expiresIn: '1h',
       });
 
-      return res.status(200).json({ message: 'Connexion réussie !', token });
+      // Créer un cookie sécurisé avec le token
+      const cookie = serialize('token', token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax',
+        maxAge: 3600,
+        path: '/',
+      });
+
+      res.setHeader('Set-Cookie', cookie);
+
+      return res.status(200).json({ message: 'Connexion réussie !' });
 
     } catch (error) {
       return res.status(500).json({ error: 'Erreur interne.' });
