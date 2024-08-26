@@ -65,25 +65,14 @@ function Nav() {
               <li>
                 <a
                   href="/profil"
-                  className="flex items-center gap-1 inline-block p-2 px-4 font-medium text-red-600 bg-white rounded-xl text-sm hover:bg-gray-100 transition"
+                  className="flex items-center gap-4 inline-block p-2 px-4 font-medium text-red-600 bg-white rounded-xl text-sm hover:bg-gray-100 transition"
                 >
-                  <Bone size={20} /> {points.points}
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/profil"
-                  className="flex items-center gap-1 inline-block p-2 px-4 font-medium text-red-600 bg-white rounded-xl text-sm hover:bg-gray-100 transition"
-                >
-                  <User size={20} /> {user.username}
-                </a>
-              </li>
-              <li>
-                <a
-                  className="inline-block p-2 px-4 font-medium text-white bg-red-400 rounded-xl text-sm hover:bg-red-500 transition"
-                  href="/deconnexion"
-                >
-                  Déconnexion
+                  <div className="flex items-center gap-1">
+                    <Bone size={20} /> {points.points}
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <User size={20} /> {user.username}
+                  </div>
                 </a>
               </li>
             </>
