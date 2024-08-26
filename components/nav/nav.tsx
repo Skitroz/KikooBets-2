@@ -1,7 +1,7 @@
 import Banniere from "../../public/risque-banniere.jpg";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { User, Bone } from "lucide-react";
+import { User, Bone, Tally1 } from "lucide-react";
 
 function Nav() {
   const [userAuthentified, setUserAuthentified] = useState(false);
@@ -65,10 +65,13 @@ function Nav() {
               <li>
                 <a
                   href="/profil"
-                  className="flex items-center gap-4 inline-block p-2 px-4 font-medium text-red-600 bg-white rounded-xl text-sm hover:bg-gray-100 transition"
+                  className="flex items-center inline-block p-2 px-4 font-medium text-red-600 bg-white rounded-xl text-sm hover:bg-gray-100 transition"
                 >
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-1 mr-2">
                     <Bone size={20} /> {points.points}
+                  </div>
+                  <div className="mr-[-10px]">
+                    <Tally1 />
                   </div>
                   <div className="flex items-center gap-1">
                     <User size={20} /> {user.username}
