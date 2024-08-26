@@ -66,7 +66,7 @@ export default function Connexion() {
       <CardHeader>
         <CardTitle className="text-2xl">Connexion</CardTitle>
         <CardDescription>
-          Connectez-vous à votre compte pour accéder à l'application.
+          Connectez-vous à votre compte pour accéder à l&apos;application.
         </CardDescription>
       </CardHeader>
       <CardContent>

@@ -51,7 +51,7 @@ export default function Inscription() {
       <CardHeader>
         <CardTitle className="text-xl">Inscription</CardTitle>
         <CardDescription>
-          Créez un compte pour accéder à l'application.
+          Créez un compte pour accéder à l&apos;application.
         </CardDescription>
       </CardHeader>
       <CardContent>
