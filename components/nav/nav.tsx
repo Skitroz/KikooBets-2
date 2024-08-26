@@ -1,25 +1,116 @@
-import React from 'react'
-import Banniere from '../../public/risque-banniere.jpg'
-import Image from 'next/image'
+import Banniere from "../../public/risque-banniere.jpg";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import { User, Bone } from "lucide-react";
 
 function Nav() {
+  const [userAuthentified, setUserAuthentified] = useState(false);
+  const [user, setUser] = useState<{ username?: string }>({ username: "" });
+  const [points, setPoints] = useState<{ points?: number }>({ points: 0 });
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const res = await fetch("/api/check-auth");
+        if (res.ok) {
+          setUserAuthentified(true);
+        } else {
+          setUserAuthentified(false);
+        }
+      } catch (err) {
+        console.error("Failed to fetch user:", err);
+      }
+    };
+
+    fetchUser();
+  }, []);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const res = await fetch("/api/me");
+        if (res.ok) {
+          const data = await res.json();
+          setUser({ username: data.username });
+          setPoints({ points: data.points });
+        } else {
+          setUser({ username: "" });
+        }
+      } catch (err) {
+        console.error("Failed to fetch user:", err);
+        setUser({ username: "" });
+      }
+    };
+
+    fetchUser();
+  }, []);
+
   return (
     <>
-        <div>
-            <Image src={Banniere} alt="Banniere" className='w-full h-[60px]'/>
-        </div>
-        <nav className='bg-red-600 flex justify-between items-center px-8'>
-            <ul className='flex items-center'>
-                <li className='inline-block font-bold text-white italic text-xl'><a href='/'>KikooBets</a></li>
-                <li className='inline-block p-4 font-medium text-white text-sm'><a href='/'>League of Legends</a></li>
-            </ul>
-            <ul className='flex items-center gap-4'>
-                <li className='inline-block p-2 px-4 font-medium text-red-600 bg-white rounded-xl text-sm'><a href='/inscription'>Inscription</a></li>
-                <li className='inline-block p-2 px-4 font-medium text-white bg-red-400 rounded-xl text-sm'><a href='/connexion'>Connexion</a></li>
-            </ul>
-        </nav>
+      <div>
+        <Image src={Banniere} alt="Banniere" className="w-full h-[60px]" />
+      </div>
+      <nav className="bg-red-600 flex justify-between items-center px-8">
+        <ul className="flex items-center">
+          <li className="inline-block font-bold text-white italic text-xl">
+            <a href="/">KikooBets</a>
+          </li>
+          <li className="inline-block p-4 font-medium text-white text-sm">
+            <a href="/">League of Legends</a>
+          </li>
+        </ul>
+        <ul className="flex items-center gap-4">
+          {userAuthentified ? (
+            <>
+              <li>
+                <a
+                  href="/profil"
+                  className="flex items-center gap-1 inline-block p-2 px-4 font-medium text-red-600 bg-white rounded-xl text-sm hover:bg-gray-100 transition"
+                >
+                  <Bone size={20} /> {points.points}
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/profil"
+                  className="flex items-center gap-1 inline-block p-2 px-4 font-medium text-red-600 bg-white rounded-xl text-sm hover:bg-gray-100 transition"
+                >
+                  <User size={20} /> {user.username}
+                </a>
+              </li>
+              <li>
+                <a
+                  className="inline-block p-2 px-4 font-medium text-white bg-red-400 rounded-xl text-sm hover:bg-red-500 transition"
+                  href="/deconnexion"
+                >
+                  Déconnexion
+                </a>
+              </li>
+            </>
+          ) : (
+            <>
+              <li>
+                <a
+                  className="inline-block p-2 px-4 font-medium text-red-600 bg-white rounded-xl text-sm"
+                  href="/inscription"
+                >
+                  Inscription
+                </a>
+              </li>
+              <li>
+                <a
+                  className="inline-block p-2 px-4 font-medium text-white bg-red-400 rounded-xl text-sm"
+                  href="/connexion"
+                >
+                  Connexion
+                </a>
+              </li>
+            </>
+          )}
+        </ul>
+      </nav>
     </>
-  )
+  );
 }
 
-export default Nav
+export default Nav;
